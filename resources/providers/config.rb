@@ -4,7 +4,7 @@
 # Provider:: config
 #
 
-include Events-counter::Helper
+include Eventscounter::Helper
 
 action :add do
   begin

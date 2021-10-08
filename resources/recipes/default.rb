@@ -7,6 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-events-counter_config "config" do
+eventscounter_config "config" do
   action :add
 end

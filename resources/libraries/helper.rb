@@ -1,4 +1,4 @@
-module Events-counter
+module Eventscounter
   module Helper
   end
 end
