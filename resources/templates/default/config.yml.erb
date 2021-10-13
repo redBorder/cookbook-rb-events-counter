@@ -6,23 +6,23 @@ counters:
     read_topics:                         # Topics to read messages for accounting
 <%
 topics=[]
-[ "rb_flow" ].each do |topic|
-  unless (!node["redBorder"]["manager"]["topics"].nil? and node["redBorder"]["manager"]["topics"][topic]=="none")
-    if topic != "rb_mail" and topic != "rb_endpoint" and topic != "rb_malware"
-      real_topic= ((!node["redBorder"]["manager"]["topics"].nil? and ( node["redBorder"]["manager"]["topics"][topic]=="both" or node["redBorder"]["manager"]["topics"][topic]=="rb-enrich" or node["redBorder"]["manager"]["topics"][topic]=="samza") and topic!="rb_monitor" and topic!="rb_iot" ) ? "#{topic}_post" : topic )
-    else
-      real_topic = topic
-    end
-    topics<<real_topic
-  end
-end
-%>
-<% topics.each do |t| %>
-      - "<%= t %>"
-<% end %>
-    attributes:                          # Custom internal rdkafka attributes
-      bootstrap.servers:  "kafka.service:9092"
-      group.id: "counters"
+# [ "rb_flow" ].each do |topic|
+#   unless (!node["redBorder"]["manager"]["topics"].nil? and node["redBorder"]["manager"]["topics"][topic]=="none")
+#     if topic != "rb_mail" and topic != "rb_endpoint" and topic != "rb_malware"
+#       real_topic= ((!node["redBorder"]["manager"]["topics"].nil? and ( node["redBorder"]["manager"]["topics"][topic]=="both" or node["redBorder"]["manager"]["topics"][topic]=="rb-enrich" or node["redBorder"]["manager"]["topics"][topic]=="samza") and topic!="rb_monitor" and topic!="rb_iot" ) ? "#{topic}_post" : topic )
+#     else
+#       real_topic = topic
+#     end
+#     topics<<real_topic
+#   end
+# end
+# %>
+# <% topics.each do |t| %>
+#       - "<%= t %>"
+# <% end %>
+#     attributes:                          # Custom internal rdkafka attributes
+#       bootstrap.servers:  "kafka.service:9092"
+#       group.id: "counters"
 
 monitor:
   timer:
