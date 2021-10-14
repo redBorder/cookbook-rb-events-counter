@@ -33,10 +33,31 @@ action :add do
       end
     end
 
+    # Licenses configuration
+    directory "/etc/licenses" do
+      owner "root"
+      group "root"
+      mode 0755
+      action :create
+    end
 
     licmode_dg = Chef::EncryptedDataBagItem.load("rBglobal", "licmode") rescue licmode_dg={}
     licmode = licmode_dg["mode"]
     licmode = "global" if (licmode!="global" and licmode!="organization")
+
+    licenses_dg = Chef::DataBagItem.load("rBglobal", "licenses") rescue licenses_dg={}
+
+    licenses_dg["licenses"].each do |uuid, value|
+      template "/etc/licenses/#{uuid}" do
+        source "variable.erb"
+        owner "root"
+        group "root"
+        mode 0644
+        retries 2
+        variables(:variable => JSON.pretty_generate(value))
+        notifies :reload, "service[events-counter]", :delayed
+      end
+    end unless licenses_dg["licenses"].nil?
 
     template "/etc/events-counter/config.yml" do
       source "config.yml.erb"
@@ -59,6 +80,7 @@ action :add do
         mode 0600
         retries 2
         variables(:private_rsa => root_pem["private_rsa"])
+        cookbook "events-counter"
       end
     end
 
