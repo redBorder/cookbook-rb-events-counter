@@ -49,7 +49,7 @@ action :add do
       notifies :restart, "service[events-counter]", :delayed
     end
 
-    root_pem = Chef::EncryptedDataBagItem.load("certs", "root_pem") rescue root_pem = nil
+    root_pem = Chef::EncryptedDataBagItem.load("certs", "root") rescue root_pem = nil
 
     if !root_pem.nil? and !root_pem["private_rsa"].nil?
       template "/etc/events-counter/admin.pem" do
