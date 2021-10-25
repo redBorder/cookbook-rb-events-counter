@@ -52,6 +52,7 @@ action :add do
         source "variable.erb"
         owner "root"
         group "root"
+        cookbook "events-counter"
         mode 0644
         retries 2
         variables(:variable => JSON.pretty_generate(value))
