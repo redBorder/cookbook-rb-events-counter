@@ -56,7 +56,7 @@ action :add do
         mode 0644
         retries 2
         variables(:variable => JSON.pretty_generate(value))
-        notifies :reload, "service[events-counter]", :delayed
+        notifies :restart, "service[events-counter]", :delayed
       end
     end unless licenses_dg["licenses"].nil?
 
@@ -89,7 +89,7 @@ action :add do
     service "events-counter" do
       service_name "events-counter"
       ignore_failure true
-      supports :status => true, :reload => true, :restart => true, :enable => true
+      supports :status => true, :restart => true, :enable => true
       action [:start, :enable]
     end
 
