@@ -1,4 +1,4 @@
-name             'events-counter'
+name             'rbevents-counter'
 maintainer       'Miguel Negron'
 maintainer_email 'manegron@redborder.com'
 license          'All rights reserved'
