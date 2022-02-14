@@ -128,10 +128,10 @@ end
 
 action :register do
   begin
-    if !node["rb-events-counter"]["registered"]
+    if !node["redborder-events-counter"]["registered"]
       query = {}
-      query["ID"] = "rb-events-counter-#{node["hostname"]}"
-      query["Name"] = "rb-events-counter"
+      query["ID"] = "redborder-events-counter-#{node["hostname"]}"
+      query["Name"] = "redborder-events-counter"
       query["Address"] = "#{node["ipaddress"]}"
       query["Port"] = "5000"
       json_query = Chef::JSONCompat.to_json(query)
@@ -141,8 +141,8 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.set["rb-events-counter"]["registered"] = true
-      Chef::Log.info("Events-counter service has been registered to consul")
+      node.set["redborder-events-counter"]["registered"] = true
+      Chef::Log.info("redborder-events-counter service has been registered to consul")
     end
   rescue => e
     Chef::Log.error(e.message)
@@ -151,14 +151,14 @@ end
 
 action :deregister do
   begin
-    if node["rb-events-counter"]["registered"]
+    if node["redborder-events-counter"]["registered"]
       execute 'Deregister service in consul' do
-        command "curl http://localhost:8500/v1/agent/service/deregister/rb-events-counter-#{node["hostname"]} &>/dev/null"
+        command "curl http://localhost:8500/v1/agent/service/deregister/redborder-events-counter-#{node["hostname"]} &>/dev/null"
         action :nothing
       end.run_action(:run)
 
-      node.set["rb-events-counter"]["registered"] = false
-      Chef::Log.info("Events-counter service has been deregistered from consul")
+      node.set["redborder-events-counter"]["registered"] = false
+      Chef::Log.info("redborder-events-counter service has been deregistered from consul")
     end
   rescue => e
     Chef::Log.error(e.message)
