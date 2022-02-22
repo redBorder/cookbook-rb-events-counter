@@ -1,10 +1,10 @@
 
-# Cookbook Name:: events-counter
+# Cookbook Name:: rbevents-counter
 #
 # Provider:: config
 #
 
-include Eventscounter::Helper
+include RbEventscounter::Helper
 
 action :add do
   begin
@@ -12,7 +12,7 @@ action :add do
     user = new_resource.user
     cdomain = new_resource.cdomain
 
-    yum_package "events-counter" do
+    yum_package "redborder-events-counter" do
       action :upgrade
       flush_cache [:before]
     end
@@ -24,7 +24,7 @@ action :add do
 
     flow_nodes = []
 
-    %w[ /etc/events-counter].each do |path|
+    %w[ /etc/redborder-events-counter].each do |path|
       directory path do
         owner user
         group user
@@ -52,48 +52,48 @@ action :add do
         source "variable.erb"
         owner "root"
         group "root"
-        cookbook "events-counter"
+        cookbook "rbevents-counter"
         mode 0644
         retries 2
         variables(:variable => JSON.pretty_generate(value))
-        notifies :restart, "service[events-counter]", :delayed
+        notifies :restart, "service[redborder-events-counter]", :delayed
       end
     end unless licenses_dg["licenses"].nil?
 
-    template "/etc/events-counter/config.yml" do
+    template "/etc/redborder-events-counter/config.yml" do
       source "config.yml.erb"
       owner user
       group user
       mode 0644
       ignore_failure true
-      cookbook "events-counter"
+      cookbook "rbevents-counter"
       variables(:licmode => licmode)
-      notifies :restart, "service[events-counter]", :delayed
+      notifies :restart, "service[redborder-events-counter]", :delayed
     end
 
     root_pem = Chef::EncryptedDataBagItem.load("certs", "root") rescue root_pem = nil
 
     if !root_pem.nil? and !root_pem["private_rsa"].nil?
-      template "/etc/events-counter/admin.pem" do
+      template "/etc/redborder-events-counter/admin.pem" do
         source "rsa_cert.pem.erb"
         owner user
         group user
         mode 0600
         retries 2
         variables(:private_rsa => root_pem["private_rsa"])
-        cookbook "events-counter"
+        cookbook "rbevents-counter"
       end
     end
 
 
-    service "events-counter" do
-      service_name "events-counter"
+    service "redborder-events-counter" do
+      service_name "redborder-events-counter"
       ignore_failure true
       supports :status => true, :restart => true, :enable => true
       action [:start, :enable]
     end
 
-    Chef::Log.info("Events-counter cookbook has been processed")
+    Chef::Log.info("rb-Events-counter cookbook has been processed")
   rescue => e
     Chef::Log.error(e.message)
   end
@@ -102,25 +102,25 @@ end
 action :remove do
   begin
     
-    service "events-counter" do
-      service_name "events-counter"
+    service "redborder-events-counter" do
+      service_name "redborder-events-counter"
       ignore_failure true
       supports :status => true, :enable => true
       action [:stop, :disable]
     end
 
-    %w[ /etc/events-counter ].each do |path|
+    %w[ /etc/redborder-events-counter ].each do |path|
       directory path do
         recursive true
         action :delete
       end
     end
 
-    yum_package "events-counter" do
+    yum_package "redborder-events-counter" do
       action :remove
     end
 
-    Chef::Log.info("Events-counter cookbook has been processed")
+    Chef::Log.info("rb-Events-counter cookbook has been processed")
   rescue => e
     Chef::Log.error(e.message)
   end
@@ -128,10 +128,10 @@ end
 
 action :register do
   begin
-    if !node["events-counter"]["registered"]
+    if !node["redborder-events-counter"]["registered"]
       query = {}
-      query["ID"] = "events-counter-#{node["hostname"]}"
-      query["Name"] = "events-counter"
+      query["ID"] = "redborder-events-counter-#{node["hostname"]}"
+      query["Name"] = "redborder-events-counter"
       query["Address"] = "#{node["ipaddress"]}"
       query["Port"] = "5000"
       json_query = Chef::JSONCompat.to_json(query)
@@ -141,8 +141,8 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.set["events-counter"]["registered"] = true
-      Chef::Log.info("Events-counter service has been registered to consul")
+      node.set["redborder-events-counter"]["registered"] = true
+      Chef::Log.info("redborder-events-counter service has been registered to consul")
     end
   rescue => e
     Chef::Log.error(e.message)
@@ -151,14 +151,14 @@ end
 
 action :deregister do
   begin
-    if node["events-counter"]["registered"]
+    if node["redborder-events-counter"]["registered"]
       execute 'Deregister service in consul' do
-        command "curl http://localhost:8500/v1/agent/service/deregister/events-counter-#{node["hostname"]} &>/dev/null"
+        command "curl http://localhost:8500/v1/agent/service/deregister/redborder-events-counter-#{node["hostname"]} &>/dev/null"
         action :nothing
       end.run_action(:run)
 
-      node.set["events-counter"]["registered"] = false
-      Chef::Log.info("Events-counter service has been deregistered from consul")
+      node.set["redborder-events-counter"]["registered"] = false
+      Chef::Log.info("redborder-events-counter service has been deregistered from consul")
     end
   rescue => e
     Chef::Log.error(e.message)

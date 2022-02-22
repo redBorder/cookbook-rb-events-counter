@@ -1,4 +1,4 @@
-PACKAGE_NAME?=	cookbook-events-counter
+PACKAGE_NAME?=	cookbook-rb-events-counter
 
 VERSION?=	$(shell git describe --abbrev=6 --tags HEAD --always | sed 's/-/_/g')
 

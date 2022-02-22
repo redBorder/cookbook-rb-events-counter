@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: events-counter
+# Cookbook Name:: rbevents-counter
 # Recipe:: default
 #
 # Copyright 2016, redborder
@@ -7,6 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-eventscounter_config "config" do
+rbeventscounter_config "config" do
   action :add
 end

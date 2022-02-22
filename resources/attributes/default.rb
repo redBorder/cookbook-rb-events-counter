@@ -1,3 +1,3 @@
 #Flags
-default["events-counter"]["registered"] = false
+default["redborder-events-counter"]["registered"] = false
 
