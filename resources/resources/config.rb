@@ -1,4 +1,4 @@
-# Cookbook Name:: events-counter
+# Cookbook Name:: rbevents-counter
 #
 # Resource:: config
 #
@@ -6,7 +6,7 @@
 actions :add, :remove, :register, :deregister
 default_action :add
 
-attribute :user, :kind_of => String, :default => "events-counter"
+attribute :user, :kind_of => String, :default => "redborder-events-counter"
 attribute :cdomain, :kind_of => String, :default => "redborder.cluster"
 
 # EXAMPLES

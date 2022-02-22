@@ -1,6 +1,6 @@
-%global cookbook_path /var/chef/cookbooks/events-counter
+%global cookbook_path /var/chef/cookbooks/rb-events-counter
 
-Name: cookbook-events-counter
+Name: cookbook-rb-events-counter
 Version: %{__version}
 Release: %{__release}%{?dist}
 BuildArch: noarch
@@ -34,7 +34,7 @@ case "$1" in
   ;;
   2)
     # This is an upgrade.
-    su - -s /bin/bash -c 'source /etc/profile && rvm gemset use default && env knife cookbook upload events-counter'
+    su - -s /bin/bash -c 'source /etc/profile && rvm gemset use default && env knife cookbook upload rbevents-counter'
   ;;
 esac
 

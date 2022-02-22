@@ -1,4 +1,4 @@
-module Eventscounter
+module RbEventscounter
   module Helper
   end
 end

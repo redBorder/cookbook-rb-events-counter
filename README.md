@@ -1,4 +1,4 @@
-# cookbook-events-counter
+# cookbook-rb-events-counter
 
 This is the cookbook for events-counter integration in redborder.
 
