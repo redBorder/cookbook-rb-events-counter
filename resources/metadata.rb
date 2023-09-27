@@ -4,4 +4,4 @@ maintainer_email 'manegron@redborder.com'
 license          'All rights reserved'
 description      'Installs/Configures cookbook-events-counter'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.0.0'
+version          '0.0.6'
