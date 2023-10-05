@@ -12,7 +12,7 @@ action :add do
     user = new_resource.user
     cdomain = new_resource.cdomain
 
-    yum_package "redborder-events-counter" do
+    dnf_package "redborder-events-counter" do
       action :upgrade
       flush_cache [:before]
     end
@@ -116,7 +116,7 @@ action :remove do
       end
     end
 
-    yum_package "redborder-events-counter" do
+    dnf_package "redborder-events-counter" do
       action :remove
     end
 
