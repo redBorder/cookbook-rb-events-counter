@@ -141,7 +141,7 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.set["redborder-events-counter"]["registered"] = true
+      node.default["redborder-events-counter"]["registered"] = true
       Chef::Log.info("redborder-events-counter service has been registered to consul")
     end
   rescue => e
@@ -157,7 +157,7 @@ action :deregister do
         action :nothing
       end.run_action(:run)
 
-      node.set["redborder-events-counter"]["registered"] = false
+      node.default["redborder-events-counter"]["registered"] = false
       Chef::Log.info("redborder-events-counter service has been deregistered from consul")
     end
   rescue => e
