@@ -12,14 +12,15 @@ action :add do
     user = new_resource.user
     cdomain = new_resource.cdomain
 
-    yum_package "redborder-events-counter" do
+    dnf_package "redborder-events-counter" do
       action :upgrade
       flush_cache [:before]
     end
 
-    user user do
-      action :create
-      system true
+    execute "create_user" do
+      command "/usr/sbin/useradd -r #{user}"
+      ignore_failure true
+      not_if "getent passwd #{user}"
     end
 
     flow_nodes = []
@@ -116,7 +117,7 @@ action :remove do
       end
     end
 
-    yum_package "redborder-events-counter" do
+    dnf_package "redborder-events-counter" do
       action :remove
     end
 
@@ -141,7 +142,7 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.set["redborder-events-counter"]["registered"] = true
+      node.normal["redborder-events-counter"]["registered"] = true
       Chef::Log.info("redborder-events-counter service has been registered to consul")
     end
   rescue => e
@@ -157,7 +158,7 @@ action :deregister do
         action :nothing
       end.run_action(:run)
 
-      node.set["redborder-events-counter"]["registered"] = false
+      node.normal["redborder-events-counter"]["registered"] = false
       Chef::Log.info("redborder-events-counter service has been deregistered from consul")
     end
   rescue => e
