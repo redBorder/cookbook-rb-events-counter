@@ -1,7 +1,6 @@
 name             'rbevents-counter'
-maintainer       'Miguel Negron'
-maintainer_email 'manegron@redborder.com'
-license          'All rights reserved'
+maintainer       'Eneo Tecnología S.L.'
+maintainer_email 'git@redborder.com'
+license          'AGPL-3.0'
 description      'Installs/Configures cookbook-events-counter'
-long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.0.6'
