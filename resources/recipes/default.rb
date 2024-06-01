@@ -1,12 +1,8 @@
-#
-# Cookbook Name:: rbevents-counter
+# Cookbook:: rbevents-counter
 # Recipe:: default
-#
-# Copyright 2016, redborder
-#
-# All rights reserved - Do Not Redistribute
-#
+# Copyright:: 2024, redborder
+# License:: Affero General Public License, Version 3
 
-rbeventscounter_config "config" do
+rbeventscounter_config 'config' do
   action :add
 end
