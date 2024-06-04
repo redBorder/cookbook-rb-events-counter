@@ -1,5 +1,10 @@
-cookbook-events-counter CHANGELOG
-============================
+cookbook-rb-events-counter CHANGELOG
+===============
+
+## 0.0.7
+
+  - Miguel Negrón
+    - [159c397] Improvement/fix lint (#6)
 
 This file is used to list changes made in each version of the events-counter cookbook.
 
