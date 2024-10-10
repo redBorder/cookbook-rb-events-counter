@@ -25,6 +25,9 @@ chmod -R 0755 %{buildroot}%{cookbook_path}
 install -D -m 0644 README.md %{buildroot}%{cookbook_path}/README.md
 
 %pre
+if [ -d /var/chef/cookbooks/rb-events-counter ]; then
+    rm -rf /var/chef/cookbooks/rb-events-counter
+fi
 
 %post
 case "$1" in
@@ -38,6 +41,12 @@ case "$1" in
   ;;
 esac
 
+%postun
+# Deletes directory when uninstall the package
+if [ "$1" = 0 ] && [ -d /var/chef/cookbooks/rb-events-counter ]; then
+  rm -rf /var/chef/cookbooks/rb-events-counter
+fi
+
 %files
 %defattr(0755,root,root)
 %{cookbook_path}
@@ -47,5 +56,8 @@ esac
 %doc
 
 %changelog
-* Tue Oct 5 2021 Miguel Negron <manegron@redborder.com> - 1.0.0-1
+* Thu Oct 10 2024 Miguel Negrón <manegron@redborder.com>
+- Add pre and postun
+
+* Tue Oct 5 2021 Miguel Negron <manegron@redborder.com>
 - first spec version
