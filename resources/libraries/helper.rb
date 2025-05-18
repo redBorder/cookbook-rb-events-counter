@@ -19,7 +19,7 @@ module RbEventscounter
 
       {
         current_licenses: current_licenses,
-        licenses_to_remove: licenses_to_remove
+        licenses_to_remove: licenses_to_remove,
       }
     end
   end
