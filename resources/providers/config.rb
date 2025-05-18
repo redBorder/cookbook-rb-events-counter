@@ -69,6 +69,17 @@ action :add do
       end
     end
 
+    template '/etc/redborder-events-counter/config.yml' do
+      source 'config.yml.erb'
+      owner user
+      group user
+      mode '0644'
+      ignore_failure true
+      cookbook 'rbevents-counter'
+      variables(licmode: licmode)
+      notifies :restart, 'service[redborder-events-counter]', :delayed
+    end
+
     begin
       root_pem = data_bag_item('certs', 'root')
     rescue
