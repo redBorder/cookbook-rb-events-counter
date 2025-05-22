@@ -6,7 +6,7 @@ counters:
     read_topics:                         # Topics to read messages for accounting
 <%
 topics=[]
- [ "rb_flow", "rb_event", "rb_vault", "rb_scanner", "rb_location" ].each do |topic|
+ [ "rb_flow", "rb_event", "rb_vault", "rb_scanner", "rb_loc" ].each do |topic|
    unless (!node["redborder"]["manager"]["topics"].nil? and node["redborder"]["manager"]["topics"][topic]=="none")
      if topic != "rb_mail" and topic != "rb_endpoint" and topic != "rb_malware"
        real_topic= ((!node["redborder"]["manager"]["topics"].nil? and ( node["redborder"]["manager"]["topics"][topic]=="both" or node["redborder"]["manager"]["topics"][topic]=="rb-enrich" or node["redborder"]["manager"]["topics"][topic]=="samza") and topic!="rb_monitor" and topic!="rb_iot" ) ? "#{topic}_post" : topic )
