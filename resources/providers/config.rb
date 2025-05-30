@@ -6,6 +6,7 @@ include RbEventscounter::Helper
 action :add do
   begin
     user = new_resource.user
+    licenses_dir = new_resource.licenses_dir
 
     dnf_package 'redborder-events-counter' do
       action :upgrade
@@ -46,14 +47,17 @@ action :add do
       licmode = 'global'
     end
 
-    begin
-      licenses_dg = data_bag_item('rBglobal', 'licenses')
-    rescue
-      licenses_dg = {}
+    license_info = get_license_info(licenses_dir)
+
+    license_info[:licenses_to_remove].each do |uuid|
+      file "#{licenses_dir}/#{uuid}" do
+        action :delete
+        notifies :restart, 'service[redborder-events-counter]', :delayed
+      end
     end
 
-    licenses_dg['licenses'].each do |uuid, value|
-      template "/etc/licenses/#{uuid}" do
+    license_info[:current_licenses].each do |uuid, value|
+      template "#{licenses_dir}/#{uuid}" do
         source 'variable.erb'
         owner 'root'
         group 'root'
@@ -63,7 +67,7 @@ action :add do
         variables(variable: JSON.pretty_generate(value))
         notifies :restart, 'service[redborder-events-counter]', :delayed
       end
-    end unless licenses_dg['licenses'].nil?
+    end
 
     template '/etc/redborder-events-counter/config.yml' do
       source 'config.yml.erb'

@@ -1,6 +1,18 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.0
+
+  - Miguel Negrón
+    - [ab0f2db] Merge pull request #8 from redBorder/feature/#21232_refactor_license_system_ng
+  - Rafael Gomez
+    - [afab804] Fix: Update topic name from 'rb_location' to 'rb_loc' in config.yml.erb
+    - [ee2f652] Update Kafka read topics in config.yml.erb to include additional topics
+  - Rafa Gómez
+    - [d9d49ce] Fix: Adding again template for etc/redborder-events-counter/config.yml
+    - [ea42d6b] Fix Linter: Put a comma after the last item of a multiline hash
+    - [80c25f4] Feat: Creating helper method that returns current and removed licenses. Fix: Removed licenses are removed from /etc/licenses
+
 ## 0.0.8
 
   - Miguel Negrón
