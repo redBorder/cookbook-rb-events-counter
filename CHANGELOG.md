@@ -1,6 +1,11 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.1
+
+  - nilsver
+    - [9ed6bc2] remove flush cache
+
 ## 1.0.0
 
   - Miguel Negrón
