@@ -10,7 +10,6 @@ action :add do
 
     dnf_package 'redborder-events-counter' do
       action :upgrade
-      flush_cache [:before]
     end
 
     execute 'create_user' do
