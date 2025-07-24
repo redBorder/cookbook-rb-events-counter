@@ -48,7 +48,8 @@ if [ "$1" = 0 ] && [ -d /var/chef/cookbooks/rb-events-counter ]; then
 fi
 
 %files
-%defattr(0755,root,root)
+%defattr(0644,root,root)
+%attr(0755,root,root)
 %{cookbook_path}
 %defattr(0644,root,root)
 %{cookbook_path}/README.md
