@@ -1,6 +1,11 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.2
+
+  - jnavarrorb
+    - [dc4b916] Remove executable permissions on non-executable files
+
 ## 1.0.1
 
   - nilsver
