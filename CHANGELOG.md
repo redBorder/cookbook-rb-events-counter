@@ -1,6 +1,11 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.3
+
+  - manegron
+    - [0b97dda] Update helper
+
 ## 1.0.2
 
   - jnavarrorb
