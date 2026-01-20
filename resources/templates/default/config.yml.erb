@@ -16,7 +16,10 @@ topics=[]
      topics<<real_topic
    end
  end
- %>
+
+# Calculate manager node index
+idx = node.dig('redborder', 'managers_per_services', 'redborder-events-counter')&.index(node.name)
+%>
  <% topics.each do |t| %>
        - "<%= t %>"
  <% end %>
@@ -35,7 +38,7 @@ monitor:
     attributes:                          # Custom internal rdkafka attributes
       bootstrap.servers:  "kafka.service:9092"
       enable.auto.commit: "false"        # IMPORTANT: Should be set to false
-      group.id: "counters-monitor"
+      group.id: <%= idx ? "counters-monitor-#{idx}" : "counters-monitor" %>
 
 licenses_directory: /etc/licenses
 organization_mode: <%= @licmode.eql?("organization") ? "true" : "false" %>

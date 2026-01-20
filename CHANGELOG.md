@@ -1,6 +1,11 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.4
+
+  - manegron
+    - [2ac2e74] Add a different group id per manager in monitor section
+
 ## 1.0.3
 
   - manegron
