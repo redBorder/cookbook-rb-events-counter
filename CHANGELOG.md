@@ -1,6 +1,11 @@
 cookbook-rb-events-counter CHANGELOG
 ===============
 
+## 1.0.5
+
+  - manegron
+    - [aa0c4d1] Upload cookbook only if opscode-erchef is active
+
 ## 1.0.4
 
   - manegron
